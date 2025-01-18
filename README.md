@@ -19,6 +19,7 @@ install FastAPI
 ```pip install "fastapi[standard]"```
 
 Run FastAPI
+
 ```fastapi dev main.py```
 
 
