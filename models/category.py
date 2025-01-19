@@ -23,8 +23,8 @@ class Category(Base):
     
     @classmethod
     def get_by_id(cls, session: sessionmaker, id: int):
-        return session.query(cls).filter(cls.id == id).first()
+        return cls.query(session).filter(cls.id == id).first()
 
     @classmethod
     def get_by_name(cls, session: sessionmaker, name: str):
-        return session.query(cls).filter(cls.vName == name).first()
+        return cls.query(session).filter(cls.vName == name).first()

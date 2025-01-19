@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text, func
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
-from .database import Base  # Import the common Base class
+from .database import Base
 
 class Product(Base):
     __tablename__ = "product"
@@ -25,9 +25,17 @@ class Product(Base):
         return session.query(cls).filter(cls.deleted_at == None)
     
     @classmethod
-    def get_by_id(cls, session: sessionmaker, id: int):
-        return session.query(cls).filter(cls.id == id).first()
+    def get_by_id(cls, session: sessionmaker, id: int, category_id: int = None):
+        query = cls.query(session).filter(cls.id == id)
+        if category_id is not None:
+            query = query.filter(cls.iCategoryId == category_id)
+
+        return query.first()
     
     @classmethod
-    def get_by_name(cls, session: sessionmaker, name: str):
-        return session.query(cls).filter(cls.vName == name).first()
+    def get_by_name(cls, session: sessionmaker, name: str, category_id: int = None):
+        query = cls.query(session).filter(cls.vName == name)
+        if category_id is not None:
+            query = query.filter(cls.iCategoryId == category_id)
+        
+        return query.first()

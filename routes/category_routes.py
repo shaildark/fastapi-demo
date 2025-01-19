@@ -67,9 +67,9 @@ async def update_product_category(request: CategoryRequest, category_id: int, db
     category = Category.get_by_id(db, category_id)
     
     if not category:
-        return api_response(message="Category does not exists", status_code=400)
+        return api_response(message="Category does not exists", status_code=400)    
     
-    category_exist = db.query(Category).filter(Category.vName == request.name, Category.id != category_id).first()
+    category_exist = Category.query(db).filter(Category.vName == request.name,Category.id != category_id).first()    
 
     if category_exist:
         return api_response(message="Category already exists", status_code=400)
